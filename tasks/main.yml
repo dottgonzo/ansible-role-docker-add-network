@@ -1,0 +1,7 @@
+---
+- name: add networks
+  docker_network:
+    name: "{{ docker_network_name }}"
+    labels: "{{ docker_network_labels }}"
+    ipam_options:
+      subnet: "{{ docker_network_subnet }}"
