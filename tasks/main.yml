@@ -14,6 +14,7 @@
     docker_network_name: "{{ docker_network_item.docker_network_name }}"
     docker_network_labels: "{{ docker_network_item.docker_network_labels if docker_network_item.docker_network_labels is defined else omit }}"
     docker_network_subnet: "{{ docker_network_item.docker_network_subnet if docker_network_item.docker_network_subnet is defined else omit }}"
-    docker_network_tls: "{{ docker_network_item.docker_network_tls if docker_network_item.docker_network_tls is defined else no }}"
+    docker_network_driver_options: "{{ docker_network_item.driver_options if docker_network_item.driver_options is defined else omit }}"
+    docker_network_attachable: "{{ docker_network_item.docker_network_attachable if docker_network_item.docker_network_attachable is defined else omit }}"
   when:
     - docker_networks is defined
