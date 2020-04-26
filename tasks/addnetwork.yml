@@ -1,5 +1,5 @@
 ---
-- name: add networks
+- name: add network "{{ docker_network_name }}"
   docker_network:
     name: "{{ docker_network_name }}"
     tls: "{{ docker_network_tls if docker_network_tls is defined else no }}"
