@@ -2,6 +2,6 @@
 - name: add networks
   docker_network:
     name: "{{ docker_network_name }}"
-    labels: "{{ docker_network_labels if docker_network_labels is defined else {} }}"
+    labels: "{{ docker_network_labels if docker_network_labels is defined else omit }}"
     ipam_driver_options:
-      subnet: "{{ docker_network_subnet }}"
+      subnet: "{{ docker_network_subnet if docker_network_subnet is defined else omit }}"
