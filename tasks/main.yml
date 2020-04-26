@@ -1,7 +1,18 @@
 ---
-- name: add networks
-  docker_network:
-    name: "{{ docker_network_name }}"
-    labels: "{{ docker_network_labels if docker_network_labels is defined else {} }}"
-    ipam_driver_options:
-      subnet: "{{ docker_network_subnet }}"
+- name: Add a Single Network
+  include_tasks: addnetwork.yml
+  when:
+    - docker_network_name is defined
+    - docker_networks is undefined
+
+- name: Add Multiple Networks
+  include_tasks: addnetwork.yml
+  loop: "{{ docker_networks if docker_networks is defined else [] }}"
+  loop_control:
+    loop_var: docker_network_item
+  vars:
+    docker_network_name: "{{ docker_network_item.docker_network_name }}"
+    docker_network_labels: "{{ docker_network_item.docker_network_labels }}"
+    docker_network_subnet: "{{ docker_network_item.docker_network_subnet }}"
+  when:
+    - docker_networks is defined
