@@ -7,7 +7,7 @@
     attachable: "{{ docker_network_attachable if docker_network_attachable is defined else 'no' }}"
     driver: "{{ docker_network_driver if docker_network_driver is defined else omit }}"
   when:
-    - docker_network_subnet == ""
+    - docker_network_subnet == "no"
 
 - name: add network "{{ docker_network_name }}" with subnet
   docker_network:
@@ -19,4 +19,4 @@
     ipam_config:
       - subnet: "{{ docker_network_subnet }}"
   when:
-    - docker_network_subnet != ""
+    - docker_network_subnet != "no"
