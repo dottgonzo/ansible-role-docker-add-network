@@ -6,5 +6,17 @@
     labels: "{{ docker_network_labels if docker_network_labels is defined else omit }}"
     attachable: "{{ docker_network_attachable if docker_network_attachable is defined else 'no' }}"
     driver: "{{ docker_network_driver if docker_network_driver is defined else omit }}"
-    ipam_driver_options:
-      subnet: "{{ docker_network_subnet if docker_network_subnet is defined else omit }}"
+  when:
+    - docker_network_subnet == ""
+
+- name: add network "{{ docker_network_name }}" with subnet
+  docker_network:
+    name: "{{ docker_network_name }}"
+    driver_options: "{{ docker_network_driver_options if docker_network_driver_options is defined else omit }}"
+    labels: "{{ docker_network_labels if docker_network_labels is defined else omit }}"
+    attachable: "{{ docker_network_attachable if docker_network_attachable is defined else 'no' }}"
+    driver: "{{ docker_network_driver if docker_network_driver is defined else omit }}"
+    ipam_config:
+      - subnet: "{{ docker_network_subnet }}"
+  when:
+    - docker_network_subnet != ""
